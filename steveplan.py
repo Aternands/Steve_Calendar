@@ -1,10 +1,18 @@
 import datetime
 
+
+#<------------------------------Global Variables---------------------------------------------->
+
+
 event_list = []
 
 task_list = []
 
-project_dict = {"Unassigned":None}
+project_dict = {"Unassigned":[None]}
+
+
+
+#<------------------------------Class Definitions----------------------------------------------->
 
 
 class Event:
@@ -33,11 +41,13 @@ class Task:
 		self.duration = duration
 
 
+#<------------------------------Functions----------------------------------------------->
+
 
 def make_project():
 
 	project = raw_input("Please enter the project's name:\n")
-	project_dict[project] = None
+	project_dict[project] = [None]
 	print "Project has been saved.\n"
 
 
@@ -85,7 +95,7 @@ def make_task():
 			print str(n) + ":   " + i.description
 			n += 1
 		priority = int(raw_input("What priority would you like to assign to this new task? Please enter a positive integer:\n"))
-		task_list.insert(n-1,a)
+		task_list.insert(priority-1,a)
 
 	has_project(a)
 
@@ -102,9 +112,9 @@ def has_project(item):
 	should_assign = (raw_input("Would you like to assign this entry to a project? Enter y/n:\n"))
 
 	if should_assign == "n":
-		if project_dict["Unassigned"] == None:
-			project_dict["Unassigned"] = item
-		elif project_dict["Unassigned"] != None:
+		if project_dict["Unassigned"] == [None]:
+			project_dict["Unassigned"] = [item]
+		else:
 			project_dict["Unassigned"].append(item)
 		print "Your entry is not assigned to a project."
 
@@ -122,8 +132,12 @@ def has_project(item):
 				return
 			elif add_project(chosen_project, item) == False:
 				has_project(item)
+				return
 		elif chosen_project in project_dict:
-			project_dict[chosen_project].append(item)
+			if project_dict[chosen_project] == [None]:
+				project_dict[chosen_project] = [item]
+			else:
+				project_dict[chosen_project].append(item)
 			print "Entry added to project."
 
 
@@ -133,7 +147,7 @@ def add_project(project_entered, item):
 
 	should_add = raw_input("This isn't one of the current projects. Would you like to add it as a new project? Enter y/n:\n")
 	if should_add == "y":
-		project_dict[project_entered] = item
+		project_dict[project_entered] = [item]
 		print "Project and entry added."
 		return True
 	if should_add == "n":
