@@ -1,4 +1,14 @@
 import datetime
+# try:
+#    import cPickle as pickle
+# except:
+#    import pickle
+
+
+#NEXT: add pickle, improve reports
+
+
+
 
 
 #<------------------------------Global Variables---------------------------------------------->
@@ -153,7 +163,28 @@ def add_project(project_entered, item):
 	if should_add == "n":
 		return False
 
+#<------------------------------Reports----------------------------------------------->
 
+def report():
+	fin = open("Schedule_Report.txt", "w")
+
+	fin.write("Tasks and Events (by Project):\n")
+
+	fin.write("\n")
+
+	for key in project_dict.keys():
+		fin.write("%s" % key.upper())
+		fin.write("\n")
+		for i in project_dict[key]:
+			if i == None:
+				pass
+			else:
+				fin.write("%s   " % i.description)
+				fin.write("%s hrs  " % i.duration)
+			fin.write("\n")
+		fin.write("\n") 
+
+	fin.close()
 
 
 	
