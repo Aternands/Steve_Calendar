@@ -1,12 +1,4 @@
 import datetime
-# try:
-#    import cPickle as pickle
-# except:
-#    import pickle
-
-
-#NEXT: add pickle, improve reports
-
 
 
 
