@@ -3,18 +3,6 @@ import time
 
 
 
-
-#<------------------------------Global Variables---------------------------------------------->
-
-
-# event_list = []
-
-# task_list = []
-
-# project_dict = {"Unassigned":[None]}
-
-
-
 #<------------------------------Class Definitions----------------------------------------------->
 
 
@@ -166,28 +154,64 @@ def report(task_list,event_list,project_dict):
 	print "Generating report....\n"
 	time.sleep(2)
 
-	fin = open("Schedule_Report.txt", "w")
+	fin = open("Schedule_Report.rtf", "w")
 
-	fin.write("Tasks and Events (by Project):\n")
+	fin.write("Tasks and Events by Project:\n")
 
 	fin.write("\n")
 
 	for key in project_dict.keys():
 		fin.write("%s" % key.upper())
-		fin.write("\n")
+		fin.write("\n") 
 		for i in project_dict[key]:
 			if i == None:
 				pass
 			else:
 				fin.write("%s   " % i.description)
 				fin.write("%s hrs  " % i.duration)
-			fin.write("\n")
+				fin.write("\n") 
 		fin.write("\n") 
+
+
+
+
+	fin.write("Events by Date:\n")
+
+	for key in project_dict.keys():
+		if project_dict[key] == None:
+			pass
+		else:
+			#fin.write("%s" % key.upper())
+			for i in project_dict[key]:
+				if isinstance(i, Event):
+					fin.write("%s   " % i.date)
+					fin.write("%s   " % i.description)
+					fin.write("%s hrs  " % i.duration)
+					fin.write("\n")
+	fin.write("\n") 
+
+
+
+
+	fin.write("Tasks by Priority:\n")
+
+	fin.write("\n")
+
+	p = 1
+
+	for i in task_list:
+		fin.write("%s.  "  % p)
+		fin.write("%s   " % i.description)
+		fin.write("%s hrs  " % i.duration)
+		p += 1
+		fin.write("\n")
+
+	fin.write("\n")
+
+
+
 
 	print "Report has been generated. Open 'Schedule_Report.txt' to review.\n"
 
 	fin.close()
-
-
-	
 
